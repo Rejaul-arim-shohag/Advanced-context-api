@@ -1,7 +1,8 @@
 import CategoryList from "./CategoryList";
 import logo from "../assets/logo.png";
-import search from "../assets/icons/search.svg";
 import useFormattedCurrentDate from "../hooks/useFormatCurrentDate";
+import Search from "./Search";
+import { useState } from "react";
 export default function Header() {
   const formattedCurrentDate = useFormattedCurrentDate();
   return (
@@ -38,9 +39,8 @@ export default function Header() {
         <a href="/">
           <img className="max-w-[100px] md:max-w-[165px]" src={logo} alt="Lws" />
         </a>
-
         <div className="flex items-center space-x-3 lg:space-x-8">
-          <img src={search} />
+          <Search />
         </div>
       </div>
       <CategoryList />
