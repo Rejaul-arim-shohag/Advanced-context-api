@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { CategoryContext, SearchContext } from "../context";
-const baseUrl = 'http://localhost:8000/v2'
+const baseUrl = "http://localhost:8000/v2";
 const useNewsQuery = () => {
   const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState({
@@ -24,14 +24,14 @@ const useNewsQuery = () => {
         throw new Error(errorMessage);
       }
       const data = await response.json();
+      console.log("data", data);
       if (type === "search") {
-        setNewsData(data?.result)
+        setNewsData(data?.result);
       } else if (type === "default") {
-        setNewsData(data?.articles)
+        setNewsData(data?.articles);
       }
-
     } catch (err) {
-      setNewsData([])
+      setNewsData([]);
       setError(err);
     } finally {
       setLoading({
@@ -58,7 +58,6 @@ const useNewsQuery = () => {
     if (!selectedCategory && !searchTerm) {
       fetchNewsData(`${baseUrl}/top-headlines`, "default");
     }
-
   }, [selectedCategory, searchTerm]);
 
   return {

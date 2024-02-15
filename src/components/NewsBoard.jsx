@@ -1,22 +1,21 @@
-import thumblg from "../assets/thumb_lg.png";
-import thumb from "../assets/thumb.png";
 import { useNewsQuery } from "../hooks";
 import NotFound from "./NotFound";
 import { Fragment } from "react";
 import { Thumb } from "./Thumb";
 import { formatTime } from "../utils/formatTime";
+import Loading from "./Loading";
 
-const bigItem = "col-span-12 grid grid-cols-12 gap-4"
-const secondItem = 'col-span-12 grid grid-cols-12 gap-4 lg:col-span-8'
-const anotherItem = "col-span-12 md:col-span-6 lg:col-span-4"
+const bigItem = "col-span-12 grid grid-cols-12 gap-4";
+const secondItem = "col-span-12 grid grid-cols-12 gap-4 lg:col-span-8";
+const anotherItem = "col-span-12 md:col-span-6 lg:col-span-4";
 
 export default function NewsBoard() {
   const { newsData, error, loading } = useNewsQuery();
   if (loading?.state) {
-    return <h1>{loading?.message}</h1>
+    return <Loading message={loading?.message} />;
   }
-  if (!newsData.length && ! loading.state ) {
-    return <NotFound />
+  if (!newsData.length && !loading.state) {
+    return <NotFound />;
   }
 
   const getSectionWidthClassName = (index) => {
@@ -25,9 +24,9 @@ export default function NewsBoard() {
     } else if (index === 1) {
       return secondItem;
     } else {
-      return anotherItem
+      return anotherItem;
     }
-  }
+  };
 
   let leftSideData = [];
   let rightSideData = [];
@@ -44,23 +43,17 @@ export default function NewsBoard() {
         <div className="col-span-12 grid grid-cols-12 gap-6 self-start xl:col-span-8">
           {leftSideData?.map((item, index) => (
             <Fragment key={item?.publishedAt}>
-              <div className={(getSectionWidthClassName(index))}>
+              <div className={getSectionWidthClassName(index)}>
                 {/* <!-- info --> */}
-                <div className="col-span-12 lg:col-span-4">
+                {/*  */}
+                <div className={index === 1 ? "col-span-12 md:col-span-6" : "col-span-12 lg:col-span-4"}>
                   <a href="#">
-                    <h3 className="mb-2.5 text-2xl font-bold lg:text-[28px]">
-                      {item?.title}
-                    </h3>
+                    <h3 className="mb-2.5 text-2xl font-bold lg:text-[28px]">{item?.title}</h3>
                   </a>
-                  <p className="text-base text-[#5C5955]">
-                    {item?.description}
-                  </p>
+                  <p className="text-base text-[#5C5955]">{item?.description}</p>
                   <p className="mt-5 text-base text-[#5C5955]">{formatTime(item?.publishedAt)}</p>
                 </div>
-                {
-                  index < 2 && <Thumb urlToImage={item?.urlToImage} author={item?.author} index={index} />
-                }
-
+                {index < 2 && <Thumb urlToImage={item?.urlToImage} author={item?.author} index={index} />}
               </div>
             </Fragment>
           ))}
@@ -72,9 +65,7 @@ export default function NewsBoard() {
             {rightSideData.map((item, index) => (
               <Fragment key={item?.publishedAt}>
                 <div className="col-span-12 mb-6 md:col-span-8">
-                  {
-                    index === 0 && <img className="w-full" src={item?.urlToImage} alt="thumb" />
-                  }
+                  {index === 0 && <img className="w-full" src={item?.urlToImage} alt="thumb" />}
                   <div className="col-span-12 mt-6 md:col-span-4">
                     <a href="#">
                       <h3 className="mb-2.5 text-xl font-bold lg:text-[20px]"> {item?.title}</h3>

@@ -2,7 +2,6 @@ import CategoryList from "./CategoryList";
 import logo from "../assets/logo.png";
 import useFormattedCurrentDate from "../hooks/useFormatCurrentDate";
 import Search from "./Search";
-import { useState } from "react";
 export default function Header() {
   const formattedCurrentDate = useFormattedCurrentDate();
   return (
