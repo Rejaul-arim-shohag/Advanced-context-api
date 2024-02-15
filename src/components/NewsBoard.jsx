@@ -10,7 +10,7 @@ const secondItem = "col-span-12 grid grid-cols-12 gap-4 lg:col-span-8";
 const anotherItem = "col-span-12 md:col-span-6 lg:col-span-4";
 
 export default function NewsBoard() {
-  const { newsData, error, loading } = useNewsQuery();
+  const { newsData,  loading } = useNewsQuery();
   if (loading?.state) {
     return <Loading message={loading?.message} />;
   }
@@ -32,7 +32,7 @@ export default function NewsBoard() {
   let rightSideData = [];
   if (newsData) {
     const splitPoint = Math.ceil(newsData.length * 0.7);
-    leftSideData = newsData.slice(0, splitPoint).reverse();
+    leftSideData = newsData.slice(0, splitPoint);
     rightSideData = newsData.slice(splitPoint);
   }
 
