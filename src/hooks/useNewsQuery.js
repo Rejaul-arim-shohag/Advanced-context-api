@@ -24,25 +24,15 @@ const useNewsQuery = () => {
         throw new Error(errorMessage);
       }
       const data = await response.json();
-
       if (type === "search") {
-        if (data?.result) {
-          setNewsData(data.result);
-          setError(null);
-        } else {
-          throw new Error("No search results found.");
-        }
+        setNewsData(data?.result)
       } else if (type === "default") {
-        if (data?.articles) {
-          setNewsData(data.articles);
-          setError(null);
-        } else {
-          throw new Error("No articles found.");
-        }
+        setNewsData(data?.articles)
       }
+
     } catch (err) {
-      setNewsData([]);
-      setError(err.message || "An error occurred while fetching news data.");
+      setNewsData([])
+      setError(err);
     } finally {
       setLoading({
         ...loading,
@@ -51,6 +41,7 @@ const useNewsQuery = () => {
       });
     }
   };
+
   useEffect(() => {
     setLoading({
       ...loading,
